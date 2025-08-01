@@ -5,13 +5,22 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\EmployeeResource\Pages;
 use App\Filament\Resources\EmployeeResource\RelationManagers;
 use App\Models\Employee;
+use App\Models\Msbranch;
+use App\Models\MsCity;
+use App\Models\MsState;
 use Filament\Forms;
+use Filament\Forms\Set;
+use Filament\Forms\Get;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Infolists\Infolist;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection;
 
 class EmployeeResource extends Resource
 {
@@ -30,20 +39,46 @@ class EmployeeResource extends Resource
                 Forms\Components\TextInput::make('full_name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('address')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('phone')
-                    ->tel()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('ms_country_id')
-                    ->numeric(),
-                Forms\Components\TextInput::make('ms_state_id')
-                    ->numeric(),
-                Forms\Components\TextInput::make('ms_city_id')
-                    ->numeric(),
+                
+
+                Forms\Components\Section::make()->schema([        
+                        Forms\Components\Textarea::make('address')
+                            ->columnSpanFull(),
+                        Forms\Components\TextInput::make('phone')
+                            ->tel()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('email')
+                            ->email()
+                            ->columnSpan(2)
+                            ->maxLength(2),            
+                        Forms\Components\Select::make('ms_country_id')
+                            ->relationship('MsCountry', 'name')    
+                            ->label('Country')
+                            ->preload()
+                            ->searchable()
+                            ->required()
+                            ->live()
+                            ->afterStateUpdated(function(Set $set){
+                                $set('ms_state_id',null);
+                                $set('ms_city_id',null);
+                            }),
+                        Forms\Components\Select::make('ms_state_id')
+                            ->label('State')
+                            ->options(fn(Get $get):Collection=>MsState::query()->where('ms_country_id',$get('ms_country_id'))->pluck('name','id'))
+                            ->searchable()
+                            ->live()
+                            ->afterStateUpdated(function(Set $set){
+                                $set('ms_city_id',null);
+                            })
+                            ->preload(),
+                        Forms\Components\Select::make('ms_city_id')                
+                            ->options(fn(Get $get):Collection=>MsCity::query()->where('ms_state_id',$get('ms_state_id'))->pluck('name','id'))
+                            ->label('City')
+                            ->searchable()
+                            ->preload(),
+                ])->description('Addess')
+                ->columns(3),
+
                 Forms\Components\TextInput::make('department_id')
                     ->required()
                     ->numeric(),

@@ -49,7 +49,7 @@ class MsbranchResource extends Resource
                     ->label('Address')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\Section::make('Relationships')->schema([                    
+                Forms\Components\Section::make()->schema([                    
                         Forms\Components\Select::make('ms_country_id')
                             ->relationship('MsCountry', 'name')    
                             ->label('Country')
@@ -138,12 +138,12 @@ class MsbranchResource extends Resource
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                ->label('New Branch')->slideOver()
+                ->label('Add Branch')
                 ->createAnother(false),
             ])
             ->emptyStateIcon('heroicon-o-circle-stack')
             ->emptyStateActions([
-                Tables\Actions\CreateAction::make()->label('New Branch'),
+                Tables\Actions\CreateAction::make()->label('Add Branch'),
             ])
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(25);

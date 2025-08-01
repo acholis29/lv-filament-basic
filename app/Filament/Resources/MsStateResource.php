@@ -37,7 +37,7 @@ class MsStateResource extends Resource
     //protected static bool $shouldSkipAuthorization = true;
 
     public static function form(Form $form): Form
-    {
+    { 
         return $form
             ->schema([
                 Forms\Components\Select::make('ms_country_id')                
@@ -104,12 +104,12 @@ class MsStateResource extends Resource
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                ->label('New State')->slideOver()
+                ->label('Add State')
                 ->createAnother(false),
             ])
             ->emptyStateIcon('heroicon-o-circle-stack')
             ->emptyStateActions([
-                Tables\Actions\CreateAction::make()->label('New State'),
+                Tables\Actions\CreateAction::make()->label('Add State'),
             ])
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(25);
@@ -126,9 +126,9 @@ class MsStateResource extends Resource
     {
         return [
             'index' => Pages\ListMsStates::route('/'),
-            'create' => Pages\CreateMsState::route('/create'),
-            'view' => Pages\ViewMsState::route('/{record}'),
-            'edit' => Pages\EditMsState::route('/{record}/edit'),
+            // 'create' => Pages\CreateMsState::route('/create'),
+            // 'view' => Pages\ViewMsState::route('/{record}'),
+             'edit' => Pages\EditMsState::route('/{record}/edit'),
         ];
     }
 }

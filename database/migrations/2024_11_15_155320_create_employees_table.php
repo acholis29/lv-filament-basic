@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreignId('ms_city_id')->nullable()->constrained();
             $table->foreignId('department_id')->constrained();
             $table->foreignId('subdepartment_id')->constrained();
-            $table->foreignId('job_position')->nullable()->constrained();
+            $table->string('job_position')->nullable()->constrained();
             $table->foreignId('msbranch_id')->constrained();
             $table->foreignId('user_id')->nullable()->constrained();
             $table->string('msreligion_id',)->nullable()->constrained();

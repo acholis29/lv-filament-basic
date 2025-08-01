@@ -10,6 +10,10 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -19,7 +23,7 @@ class MsreligionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationParentItem = 'Employees';
-        protected static ?string $navigationLabel = 'Religion';
+    protected static ?string $navigationLabel = 'Religion';
     protected static ?string $modelLabel = 'Religion';
     protected static ?int $navigationSort =3;
 
@@ -56,8 +60,11 @@ class MsreligionResource extends Resource
                 //
             ])
             ->actions([
-              //  Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                ActionGroup::make([
+                    //ViewAction::make(),
+                    EditAction::make(),
+                    DeleteAction::make()
+                ])->tooltip('Actions'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -65,11 +72,11 @@ class MsreligionResource extends Resource
                 ]),
             ])->headerActions([
                 Tables\Actions\CreateAction::make()
-                ->label('New Religion')->slideOver()
+                ->label('Add Religion')->slideOver()
             ])
             ->emptyStateIcon('heroicon-o-circle-stack')
             ->emptyStateActions([
-                Tables\Actions\CreateAction::make()->label('New Religion'),
+                Tables\Actions\CreateAction::make()->label('Add Religion'),
             ])
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(25);

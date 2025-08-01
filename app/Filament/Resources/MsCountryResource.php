@@ -117,12 +117,12 @@ class MsCountryResource extends Resource
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                ->label('New Countries')->slideOver()
+                ->label('Add Countries')
                 ->createAnother(false),
             ])
             ->emptyStateIcon('heroicon-o-circle-stack')
             ->emptyStateActions([
-                Tables\Actions\CreateAction::make()->label('New Countries'),
+                Tables\Actions\CreateAction::make()->label('Add Countries'),
             ])
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(25);
@@ -141,10 +141,7 @@ class MsCountryResource extends Resource
     public static function getRelations(): array
     {
         return [
-
          MsStateRelationManager::class
-
-
         ];
     }
 
@@ -158,8 +155,8 @@ class MsCountryResource extends Resource
         return [
             'index' => Pages\ListMsCountries::route('/'),
            // 'create' => Pages\CreateMsCountry::route('/create'),
-            //'view' => Pages\ViewMsCountry::route('/{record}'),
-            'edit' => Pages\EditMsCountry::route('/{record}/edit'),
+            'view' => Pages\ViewMsCountry::route('/{record}'),
+            // 'edit' => Pages\EditMsCountry::route('/{record}/edit'),
         ];
     }
   

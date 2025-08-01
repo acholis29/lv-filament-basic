@@ -12,6 +12,9 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -55,7 +58,7 @@ protected static ?string $slug = 'depart';
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                ->label('New Department')->slideOver()
+                ->label('Add Department')
                 ->createAnother(false)
                 ,
             ])
@@ -72,7 +75,7 @@ protected static ?string $slug = 'depart';
             ])
             ->emptyStateIcon('heroicon-o-circle-stack')
             ->emptyStateActions([
-                Tables\Actions\CreateAction::make()->label('New Department'),
+                Tables\Actions\CreateAction::make()->label('Add Department'),
             ])
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(25);

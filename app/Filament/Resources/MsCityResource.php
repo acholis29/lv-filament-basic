@@ -94,12 +94,12 @@ class MsCityResource extends Resource
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                ->label('New Cities')->slideOver()
+                ->label('Add Cities')
                 ->createAnother(false),
             ])
             ->emptyStateIcon('heroicon-o-circle-stack')
             ->emptyStateActions([
-                Tables\Actions\CreateAction::make()->label('New Cities'),
+                Tables\Actions\CreateAction::make()->label('Add Cities'),
             ])
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(25);

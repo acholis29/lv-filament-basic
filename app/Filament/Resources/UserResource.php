@@ -34,13 +34,13 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
-                    ->unique(ignoreRecord:true)
+                    ->unique(ignoreRecord: true)
                     ->maxLength(255),
                 Forms\Components\DateTimePicker::make('email_verified_at'),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->hiddenOn('edit')
-                    ->unique(ignoreRecord:true)
+                    ->unique(ignoreRecord: true)
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('phone_number')
@@ -84,7 +84,7 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-               // Tables\Actions\ViewAction::make(),
+                // Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -93,8 +93,8 @@ class UserResource extends Resource
                 ]),
             ])->headerActions([
                 Tables\Actions\CreateAction::make()
-                ->label('New Users')
-                ->createAnother(false),
+                    ->label('New Users')
+                    ->createAnother(false),
             ])
             ->emptyStateIcon('heroicon-o-circle-stack')
             ->emptyStateActions([
@@ -116,7 +116,7 @@ class UserResource extends Resource
         return [
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
-           // 'view' => Pages\ViewUser::route('/{record}'),
+            // 'view' => Pages\ViewUser::route('/{record}'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
