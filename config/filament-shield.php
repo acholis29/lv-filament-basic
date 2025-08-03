@@ -26,14 +26,15 @@ return [
         'intercept_gate' => 'before', // after
     ],
 
-    'panel_user' => [
-        'enabled' => true,
-        'name' => 'panel_user',
-    ],
-    'pos_user' => [
-        'enabled' => true,
-        'name' => 'pos_user',
-    ],
+    // 'members' => [
+    //     'enabled' => true,
+    //     'name' => 'member_user',
+    // ],
+
+    // 'dashboard' => [
+    //     'enabled' => true,
+    //     'name' => 'dashboard_user',
+    // ],
 
     'permission_prefixes' => [
         'resource' => [
@@ -44,12 +45,13 @@ return [
             // 'restore',
             // 'restore_any',
             // 'replicate',
-           // 'reorder',
+            // 'reorder',
             'delete',
-              'delete_any',
-            //   'force_delete',
-            //   'force_delete_any',
+            'delete_any',
+            // 'force_delete',
+            // 'force_delete_any',
         ],
+
         'page' => 'page',
         'widget' => 'widget',
     ],
@@ -75,7 +77,8 @@ return [
         ],
 
         'widgets' => [
-            'AccountWidget', 'FilamentInfoWidget',
+            'AccountWidget',
+            'FilamentInfoWidget',
         ],
 
         'resources' => [],

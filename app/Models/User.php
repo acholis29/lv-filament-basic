@@ -18,7 +18,7 @@ use Filament\Panel;
 class User extends Authenticatable implements FilamentUser, HasAvatar
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles, HasPanelShield ;
+    use HasFactory, Notifiable, HasRoles, HasPanelShield;
 
     /**
      * The attributes that are mass assignable.
@@ -60,24 +60,26 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         return $this->avatar_url;
     }
 
-     protected static function booted(): void
+    protected static function booted(): void
     {
 
-        if(config('filament-shield.pos_user.enabled', false))  {
-            FilamentShield::createRole(name: config('filament-shield.pos_user.name','pos_user'));
+        if (config('filament-shield.members.enabled', false)) {
+            FilamentShield::createRole(name: config('filament-shield.members.name', 'member_user'));
             static::created(function (User $user) {
-                $user->assignRole(config('filament-shield.pos_user.name','pos_user'));
+                $user->assignRole(config('filament-shield.members.name', 'member_user'));
             });
             static::deleting(function (User $user) {
-                $user->assignRole(config('filament-shield.pos_user.name','pos_user'));
+                $user->assignRole(config('filament-shield.members.name', 'member_user'));
             });
-        } 
-        
+        }
     }
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->hasRole(config('filament-shield.super_admin.name')) ||
-        $this->hasRole(config('filament-shield.pos_user.name','pos_user'));
+        // return $this->hasRole(config('filament-shield.super_admin.name')) ||
+        //     $this->hasRole(config('filament-shield.members.name', 'member_user')) ||
+        //     $this->hasRole(config('filament-shield.dashboard.name', 'dashboard_user'));
+
+        return $this->hasRole(Role::all());
     }
 }
