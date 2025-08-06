@@ -38,15 +38,19 @@ class MsSuppliersResource extends Resource
                 Forms\Components\Textarea::make('address')
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('phone')
+                    ->label('Phone')
                     ->tel()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('phone2')
+                    ->label('Phone Alternative')
                     ->tel()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
+                    ->label('Email')
                     ->email()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email2')
+                    ->label('Amail Alternative')
                     ->email()
                     ->maxLength(255),
                 Forms\Components\Select::make('ms_country_id')
