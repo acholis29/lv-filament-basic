@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Msbranch extends Model
 {
 
-    protected $fillable=[
+    protected $fillable = [
         'code',
         'name',
         'address',
@@ -20,13 +20,16 @@ class Msbranch extends Model
 
 
 
-    public function MsCountry(){
+    public function MsCountry()
+    {
         return $this->belongsTo(MsCountry::class);
     }
-    public function MsState(){
+    public function MsState()
+    {
         return $this->belongsTo(MsState::class);
     }
-    public function MsCity(){
+    public function MsCity()
+    {
         return $this->belongsTo(MsCity::class);
     }
 }

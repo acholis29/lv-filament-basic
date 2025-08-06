@@ -22,8 +22,8 @@ class MsHotelsResource extends Resource
 {
     protected static ?string $model = MsHotels::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $modelLabel = 'Master Hotel';
+    protected static ?string $navigationIcon = 'heroicon-o-home-modern';
+    protected static ?string $modelLabel = 'Hotel';
     protected static ?string $navigationGroup = 'Master Database';
     protected static ?string $slug = 'mshotels';
 
@@ -33,6 +33,7 @@ class MsHotelsResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('hotel_name')
                     ->required()
+                    ->unique()
                     ->autocapitalize('words')
                     ->dehydrateStateUsing(fn(string $state): string => Str::upper($state))
                     ->maxLength(255),

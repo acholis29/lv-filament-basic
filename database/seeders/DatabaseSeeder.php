@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\MsCountry;
+use Database\Seeders\MsState;
+use Database\Seeders\MsCitys;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,6 +25,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(MsCountry::class);
         $this->call(MsState::class);
-        $this->call(MsCity::class);
+        $this->call(MsCitys::class);
     }
 }

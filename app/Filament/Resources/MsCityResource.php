@@ -46,6 +46,7 @@ class MsCityResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
+                    ->unique()
                     ->maxLength(255),
             ]);
     }

@@ -43,6 +43,7 @@ class MsStateResource extends Resource
                 Forms\Components\Select::make('ms_country_id')
                     ->relationship('MsCountry', 'name')
                     ->label('Country ID')
+                    ->unique()
                     ->searchable()
                     ->preload()
                     ->required(),

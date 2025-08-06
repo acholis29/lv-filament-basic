@@ -24,7 +24,7 @@ class MsSuppliersResource extends Resource
     protected static ?string $model = MsSuppliers::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $modelLabel = 'Master Supplier';
+    protected static ?string $modelLabel = 'Supplier';
     protected static ?string $navigationGroup = 'Master Database';
     protected static ?string $slug = 'mssuppliers';
 
