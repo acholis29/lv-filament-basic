@@ -26,27 +26,28 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use BezhanSalleh\FilamentShield\Traits\HasShieldFormComponents;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 
-class MsCountryResource extends Resource 
+class MsCountryResource extends Resource
 {
     use HasShieldFormComponents;
 
     protected static ?string $model = MsCountry::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-flag';
-   // protected static ?string $navigationGroup = 'Master Database';
+    protected static ?string $navigationGroup = 'Master Database';
     protected static ?string $navigationLabel = 'Countries';
     protected static ?string $modelLabel = 'Countries';
     protected static ?string $slug = 'countries';
     protected static ?int $navigationSort = 2;
     protected static ?string $recordTitleAttribute = 'name';
+
     //protected static bool $shouldSkipAuthorization = true;
     public static function form(Form $form): Form
     {
-        
+
         return $form
-            
-            ->schema([                
-                    Forms\Components\Grid::make(2)
+
+            ->schema([
+                Forms\Components\Grid::make(2)
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->required()
@@ -117,8 +118,8 @@ class MsCountryResource extends Resource
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                ->label('Add Countries')
-                ->createAnother(false),
+                    ->label('Add Countries')
+                    ->createAnother(false),
             ])
             ->emptyStateIcon('heroicon-o-circle-stack')
             ->emptyStateActions([
@@ -141,12 +142,13 @@ class MsCountryResource extends Resource
     public static function getRelations(): array
     {
         return [
-         MsStateRelationManager::class
+            MsStateRelationManager::class
         ];
     }
 
     public static function getWidgets(): array
-    {  return [
+    {
+        return [
             CountyOverview::class,
         ];
     }
@@ -154,10 +156,9 @@ class MsCountryResource extends Resource
     {
         return [
             'index' => Pages\ListMsCountries::route('/'),
-           // 'create' => Pages\CreateMsCountry::route('/create'),
+            // 'create' => Pages\CreateMsCountry::route('/create'),
             'view' => Pages\ViewMsCountry::route('/{record}'),
             // 'edit' => Pages\EditMsCountry::route('/{record}/edit'),
         ];
     }
-  
 }

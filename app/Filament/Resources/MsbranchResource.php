@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MsbranchResource\Pages;
-use App\Filament\Resources\MsbranchResource\RelationManagers;
 use App\Models\Msbranch;
 use App\Models\MsCity;
 use App\Models\MsState;
@@ -16,10 +15,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Actions\ActionGroup;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Infolists\Infolist;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 
 class MsbranchResource extends Resource
@@ -35,11 +30,11 @@ class MsbranchResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([                
+            ->schema([
                 Forms\Components\TextInput::make('code')
                     ->required()
                     ->label('Code')
-                    ->disabledOn('edit') 
+                    ->disabledOn('edit')
                     ->maxLength(3),
                 Forms\Components\TextInput::make('name')
                     ->required()
@@ -49,33 +44,33 @@ class MsbranchResource extends Resource
                     ->label('Address')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\Section::make()->schema([                    
-                        Forms\Components\Select::make('ms_country_id')
-                            ->relationship('MsCountry', 'name')    
-                            ->label('Country')
-                            ->preload()
-                            ->searchable()
-                            ->required()
-                            ->live()
-                            ->afterStateUpdated(function(Set $set){
-                                $set('ms_state_id',null);
-                                $set('ms_city_id',null);
-                            }),
-                        Forms\Components\Select::make('ms_state_id')
-                            ->label('State')
-                            ->options(fn(Get $get):Collection=>MsState::query()->where('ms_country_id',$get('ms_country_id'))->pluck('name','id'))
-                            ->searchable()
-                            ->live()
-                            ->afterStateUpdated(function(Set $set){
-                                $set('ms_city_id',null);
-                            })
-                            ->preload(),
-                        Forms\Components\Select::make('ms_city_id')                
-                            ->options(fn(Get $get):Collection=>MsCity::query()->where('ms_state_id',$get('ms_state_id'))->pluck('name','id'))
-                            ->label('City')
-                            ->searchable()
-                            ->preload(),
-                    ])->columns(3),
+                Forms\Components\Section::make()->schema([
+                    Forms\Components\Select::make('ms_country_id')
+                        ->relationship('MsCountry', 'name')
+                        ->label('Country')
+                        ->preload()
+                        ->searchable()
+                        ->required()
+                        ->live()
+                        ->afterStateUpdated(function (Set $set) {
+                            $set('ms_state_id', null);
+                            $set('ms_city_id', null);
+                        }),
+                    Forms\Components\Select::make('ms_state_id')
+                        ->label('State')
+                        ->options(fn(Get $get): Collection => MsState::query()->where('ms_country_id', $get('ms_country_id'))->pluck('name', 'id'))
+                        ->searchable()
+                        ->live()
+                        ->afterStateUpdated(function (Set $set) {
+                            $set('ms_city_id', null);
+                        })
+                        ->preload(),
+                    Forms\Components\Select::make('ms_city_id')
+                        ->options(fn(Get $get): Collection => MsCity::query()->where('ms_state_id', $get('ms_state_id'))->pluck('name', 'id'))
+                        ->label('City')
+                        ->searchable()
+                        ->preload(),
+                ])->columns(3),
 
 
 
@@ -98,7 +93,7 @@ class MsbranchResource extends Resource
                     ->label('Branch Name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('MsCountry.name')
-                    ->label('Country')                    
+                    ->label('Country')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('MsState.name')
@@ -138,8 +133,8 @@ class MsbranchResource extends Resource
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                ->label('Add Branch')
-                ->createAnother(false),
+                    ->label('Add Branch')
+                    ->createAnother(false),
             ])
             ->emptyStateIcon('heroicon-o-circle-stack')
             ->emptyStateActions([
@@ -160,9 +155,9 @@ class MsbranchResource extends Resource
     {
         return [
             'index' => Pages\ListMsbranches::route('/'),
-           // 'create' => Pages\CreateMsbranch::route('/create'),
+            // 'create' => Pages\CreateMsbranch::route('/create'),
             //'view' => Pages\ViewMsbranch::route('/{record}'),
-           // 'edit' => Pages\EditMsbranch::route('/{record}/edit'),
+            // 'edit' => Pages\EditMsbranch::route('/{record}/edit'),
         ];
     }
     public static function getNavigationBadge(): ?string

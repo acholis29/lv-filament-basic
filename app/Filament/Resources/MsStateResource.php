@@ -26,7 +26,7 @@ class MsStateResource extends Resource
     protected static ?string $model = MsState::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-map';
-   // protected static ?string $navigationGroup = 'Master Database';
+    protected static ?string $navigationGroup = 'Master Database';
     protected static ?string $navigationLabel = 'State';
     protected static ?string $navigationParentItem = 'Countries';
 
@@ -37,11 +37,11 @@ class MsStateResource extends Resource
     //protected static bool $shouldSkipAuthorization = true;
 
     public static function form(Form $form): Form
-    { 
+    {
         return $form
             ->schema([
-                Forms\Components\Select::make('ms_country_id')                
-                    ->relationship('MsCountry', 'name')    
+                Forms\Components\Select::make('ms_country_id')
+                    ->relationship('MsCountry', 'name')
                     ->label('Country ID')
                     ->searchable()
                     ->preload()
@@ -55,12 +55,12 @@ class MsStateResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-        ->groups([
-            Group::make('MsCountry.name')
-                ->label('Country'),
+            ->groups([
+                Group::make('MsCountry.name')
+                    ->label('Country'),
             ])
             ->columns([
-                
+
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('city.name')
@@ -86,9 +86,9 @@ class MsStateResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('Countries')
-                ->multiple()
-                ->relationship('MsCountry','name')
-                ->searchable(),
+                    ->multiple()
+                    ->relationship('MsCountry', 'name')
+                    ->searchable(),
             ])
             ->actions([
                 ActionGroup::make([
@@ -104,8 +104,8 @@ class MsStateResource extends Resource
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                ->label('Add State')
-                ->createAnother(false),
+                    ->label('Add State')
+                    ->createAnother(false),
             ])
             ->emptyStateIcon('heroicon-o-circle-stack')
             ->emptyStateActions([
@@ -128,7 +128,7 @@ class MsStateResource extends Resource
             'index' => Pages\ListMsStates::route('/'),
             // 'create' => Pages\CreateMsState::route('/create'),
             // 'view' => Pages\ViewMsState::route('/{record}'),
-             'edit' => Pages\EditMsState::route('/{record}/edit'),
+            'edit' => Pages\EditMsState::route('/{record}/edit'),
         ];
     }
 }

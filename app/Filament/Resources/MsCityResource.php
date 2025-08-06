@@ -26,7 +26,7 @@ class MsCityResource extends Resource
 {
     protected static ?string $model = MsCity::class;
     protected static ?string $navigationIcon = 'heroicon-o-map-pin';
-//    protected static ?string $navigationGroup = 'Master Database';
+    protected static ?string $navigationGroup = 'Master Database';
     protected static ?string $navigationParentItem = 'Countries';
     protected static ?string $navigationLabel = 'Cities';
     protected static ?string $modelLabel = 'Cities';
@@ -38,8 +38,8 @@ class MsCityResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('ms_state_id')                
-                    ->relationship('MsState', 'name')    
+                Forms\Components\Select::make('ms_state_id')
+                    ->relationship('MsState', 'name')
                     ->label('State ID')
                     ->searchable()
                     ->preload()
@@ -53,10 +53,10 @@ class MsCityResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            
+
             ->groups([
-            Group::make('msstate.name')
-                ->label('State'),
+                Group::make('msstate.name')
+                    ->label('State'),
             ])
             ->columns([
 
@@ -77,8 +77,8 @@ class MsCityResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('State')
-                ->relationship('MsState','name')
-                ->searchable(),
+                    ->relationship('MsState', 'name')
+                    ->searchable(),
             ])
             ->actions([
                 ActionGroup::make([
@@ -94,8 +94,8 @@ class MsCityResource extends Resource
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                ->label('Add Cities')
-                ->createAnother(false),
+                    ->label('Add Cities')
+                    ->createAnother(false),
             ])
             ->emptyStateIcon('heroicon-o-circle-stack')
             ->emptyStateActions([
@@ -107,9 +107,7 @@ class MsCityResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            
-        ];
+        return [];
     }
 
     // public static function getNavigationBadge(): ?string
@@ -122,7 +120,7 @@ class MsCityResource extends Resource
         return [
             'index' => Pages\ListMsCities::route('/'),
             //'create' => Pages\CreateMsCity::route('/create'),
-           // 'view' => Pages\ViewMsCity::route('/{record}'),
+            // 'view' => Pages\ViewMsCity::route('/{record}'),
             'edit' => Pages\EditMsCity::route('/{record}/edit'),
         ];
     }
