@@ -33,7 +33,7 @@ class MsHotelsResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('hotel_name')
                     ->required()
-                    ->unique()
+                    ->unique(ignoreRecord: true)
                     ->autocapitalize('words')
                     ->dehydrateStateUsing(fn(string $state): string => Str::upper($state))
                     ->maxLength(255),

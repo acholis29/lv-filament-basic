@@ -82,4 +82,11 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
 
         return $this->hasRole(Role::all());
     }
+
+    public function canAccessFilament(): bool
+    {
+        // Implement your logic here to determine if the user can access Filament
+        // For example:
+        return $this->isAdmin && $this->hasVerifiedEmail();
+    }
 }

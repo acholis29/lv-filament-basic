@@ -51,7 +51,7 @@ class MsCountryResource extends Resource
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->required()
-                            ->unique()
+                            ->unique(ignoreRecord: true)
                             ->maxLength(255)->columnSpanFull(),
                         Forms\Components\TextInput::make('code')
                             ->required()

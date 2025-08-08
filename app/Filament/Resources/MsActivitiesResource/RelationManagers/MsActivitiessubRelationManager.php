@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\MsActivitiesResource\RelationManagers;
 
+use App\Models\MsActivities;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -11,6 +12,9 @@ use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Filament\Forms\Components\RichEditor;
+use Illuminate\Validation\Rules\Unique;
+use Illuminate\Database\Eloquent\Model;
 
 class MsActivitiessubRelationManager extends RelationManager
 {
@@ -25,12 +29,12 @@ class MsActivitiessubRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\TextInput::make('sub_activity_name')
-                    ->unique()
+                    ->distinct()
                     ->required()->columnSpanFull()
                     ->required()->autocapitalize('words')
                     ->dehydrateStateUsing(fn(string $state): string => Str::upper($state))
                     ->maxLength(255),
-                Forms\Components\Textarea::make('description')
+                Forms\Components\RichEditor::make('description')
                     ->label('Description')
                     ->columnSpanFull(),
                 Forms\Components\Toggle::make('is_active')
@@ -49,6 +53,7 @@ class MsActivitiessubRelationManager extends RelationManager
                     ->label('Sub Activity')
                     ->searchable()
                     ->sortable(),
+
                 Tables\Columns\IconColumn::make('is_active')
                     ->boolean()->label('is Active'),
             ])
@@ -62,12 +67,11 @@ class MsActivitiessubRelationManager extends RelationManager
                 ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
                 ])->tooltip('Actions'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ])
             ->emptyStateIcon('heroicon-o-circle-stack')
             ->emptyStateActions([

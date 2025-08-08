@@ -13,8 +13,9 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Actions\ActionGroup;
-use Illuminate\Support\Str;
+use Filament\Forms\Components\RichEditor;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -35,11 +36,12 @@ class MsActivitiesResource extends Resource
 
                 Forms\Components\TextInput::make('activity_name')
                     ->columnSpanFull()
-                    ->unique()
+                    ->unique(ignoreRecord: true)
                     ->required()->autocapitalize('words')
                     ->dehydrateStateUsing(fn(string $state): string => Str::upper($state))
                     ->maxLength(255),
-                Forms\Components\Textarea::make('description')
+                Forms\Components\RichEditor::make('description')
+                    ->label('Description')
                     ->columnSpanFull(),
                 Forms\Components\Section::make()->schema([
                     Forms\Components\Select::make('msbranch_id')
@@ -112,12 +114,15 @@ class MsActivitiesResource extends Resource
                 ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+
                 ])->tooltip('Actions'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                // ]),
+                Tables\Actions\DeleteBulkAction::make(),
+
             ])->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->createAnother(false),
@@ -143,7 +148,7 @@ class MsActivitiesResource extends Resource
         return [
             'index' => Pages\ListMsActivities::route('/'),
             // 'create' => Pages\CreateMsActivities::route('/create'),
-            // 'view' => Pages\ViewMsActivities::route('/{record}'),
+            'view' => Pages\ViewMsActivities::route('/{record}'),
             'edit' => Pages\EditMsActivities::route('/{record}/edit'),
         ];
     }

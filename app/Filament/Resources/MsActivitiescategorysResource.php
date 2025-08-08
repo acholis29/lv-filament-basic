@@ -34,7 +34,7 @@ class MsActivitiescategorysResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->unique()
+                    ->unique(ignoreRecord: true)
                     ->autocapitalize('words')
                     ->dehydrateStateUsing(fn(string $state): string => Str::upper($state))
                     ->columnSpanFull()
