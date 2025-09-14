@@ -75,9 +75,9 @@ class MsActivitiescategorysResource extends Resource
                 ])->tooltip('Actions'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+
+                Tables\Actions\DeleteBulkAction::make(),
+
             ])->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->createAnother(false),
@@ -105,5 +105,10 @@ class MsActivitiescategorysResource extends Resource
             // 'view' => Pages\ViewMsActivitiescategorys::route('/{record}'),
             // 'edit' => Pages\EditMsActivitiescategorys::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

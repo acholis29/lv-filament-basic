@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Illuminate\Support\Str;
+use Filament\Tables\Filters\TrashedFilter;
 
 class MsSuppliersResource extends Resource
 {
@@ -27,14 +29,15 @@ class MsSuppliersResource extends Resource
     protected static ?string $modelLabel = 'Supplier';
     protected static ?string $navigationGroup = 'Master Database';
     protected static ?string $slug = 'mssuppliers';
-
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('supplier_name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->dehydrateStateUsing(fn(string $state): string => Str::upper($state))
+                    ->columnSpanFull(),
                 Forms\Components\Textarea::make('address')
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('phone')
@@ -50,7 +53,7 @@ class MsSuppliersResource extends Resource
                     ->email()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email2')
-                    ->label('Amail Alternative')
+                    ->label('Email Alternative')
                     ->email()
                     ->maxLength(255),
                 Forms\Components\Select::make('ms_country_id')
@@ -101,13 +104,11 @@ class MsSuppliersResource extends Resource
                     ->label('Email'),
                 Tables\Columns\TextColumn::make('email2')
                     ->label('Email Alternative'),
-
                 Tables\Columns\TextColumn::make('website')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Active')
                     ->boolean(),
-
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
@@ -126,18 +127,23 @@ class MsSuppliersResource extends Resource
             ->defaultPaginationPageOption(25)
             ->filters([
                 //
+                TrashedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     //Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\RestoreAction::make(),
+                    Tables\Actions\ForceDeleteAction::make(),
                 ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                    Tables\Actions\RestoreBulkAction::make(),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
+                ])->tooltip('Bulk Actions'),
             ]);
     }
 

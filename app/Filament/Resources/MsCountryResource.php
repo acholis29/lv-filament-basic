@@ -158,8 +158,8 @@ class MsCountryResource extends Resource
         return [
             'index' => Pages\ListMsCountries::route('/'),
             // 'create' => Pages\CreateMsCountry::route('/create'),
-            'view' => Pages\ViewMsCountry::route('/{record}'),
-            // 'edit' => Pages\EditMsCountry::route('/{record}/edit'),
+            //'view' => Pages\ViewMsCountry::route('/{record}'),
+            'edit' => Pages\EditMsCountry::route('/{record}/edit'),
         ];
     }
 }

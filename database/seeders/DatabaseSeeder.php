@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Database\Seeders\MsCountry;
 use Database\Seeders\MsState;
-use Database\Seeders\MsCitys;
+use Database\Seeders\MsCity;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,6 +25,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(MsCountry::class);
         $this->call(MsState::class);
-        $this->call(MsCitys::class);
+        $this->call(MsCity::class);
     }
 }

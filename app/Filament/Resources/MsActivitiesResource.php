@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MsActivitiesResource\Pages;
 use App\Filament\Resources\MsActivitiesResource\RelationManagers;
+use App\Filament\Resources\MsActivitiesResource\RelationManagers\MsActivitiesdescriptionsRelationManager;
 use App\Filament\Resources\MsActivitiesResource\RelationManagers\MsActivitiessubRelationManager;
 use App\Models\MsActivities;
 use App\Models\MsActivitiessub;
@@ -14,6 +15,11 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Forms\Components\RichEditor;
+
+
+
+use Filament\Tables\Filters\TrashedFilter;
+
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
@@ -40,9 +46,7 @@ class MsActivitiesResource extends Resource
                     ->required()->autocapitalize('words')
                     ->dehydrateStateUsing(fn(string $state): string => Str::upper($state))
                     ->maxLength(255),
-                Forms\Components\RichEditor::make('description')
-                    ->label('Description')
-                    ->columnSpanFull(),
+
                 Forms\Components\Section::make()->schema([
                     Forms\Components\Select::make('msbranch_id')
                         ->relationship('Msbranch', 'name')
@@ -78,6 +82,7 @@ class MsActivitiesResource extends Resource
                 ])->columns(3),
 
 
+
             ]);
     }
 
@@ -109,21 +114,37 @@ class MsActivitiesResource extends Resource
             ])
             ->filters([
                 //
+                TrashedFilter::make(),
             ])
             ->actions([
                 ActionGroup::make([
-                    Tables\Actions\ViewAction::make(),
+                    // Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\RestoreAction::make(),
+                    Tables\Actions\ForceDeleteAction::make(),
 
                 ])->tooltip('Actions'),
             ])
             ->bulkActions([
-                // Tables\Actions\BulkActionGroup::make([
-                // ]),
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\RestoreBulkAction::make(),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
+                ])->tooltip('Bulk Actions'),
 
-            ])->headerActions([
+            ])
+
+            // ->recordActions([
+            //     // You may add these actions to your table if you're using a simple
+            //     // resource, or you just want to be able to delete records without
+            //     // leaving the table.
+            //     DeleteAction::make(),
+            //     ForceDeleteAction::make(),
+            //     RestoreAction::make(),
+            //     // ...
+            // ])
+            ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->createAnother(false),
             ])
@@ -140,6 +161,7 @@ class MsActivitiesResource extends Resource
         return [
             // MsActivitiessub::class
             MsActivitiessubRelationManager::class,
+            MsActivitiesdescriptionsRelationManager::class,
         ];
     }
 
@@ -147,9 +169,14 @@ class MsActivitiesResource extends Resource
     {
         return [
             'index' => Pages\ListMsActivities::route('/'),
-            // 'create' => Pages\CreateMsActivities::route('/create'),
-            'view' => Pages\ViewMsActivities::route('/{record}'),
+            'create' => Pages\CreateMsActivities::route('/create'),
+            // 'view' => Pages\ViewMsActivities::route('/{record}'),
             'edit' => Pages\EditMsActivities::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

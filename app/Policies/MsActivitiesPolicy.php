@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Msbranch;
+use App\Models\MsActivities;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class MsbranchPolicy
+class MsActivitiesPolicy
 {
     use HandlesAuthorization;
 
@@ -15,15 +15,15 @@ class MsbranchPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_msbranch');
+        return $user->can('view_any_ms::activities');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Msbranch $msbranch): bool
+    public function view(User $user, MsActivities $msActivities): bool
     {
-        return $user->can('view_msbranch');
+        return $user->can('view_ms::activities');
     }
 
     /**
@@ -31,23 +31,23 @@ class MsbranchPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_msbranch');
+        return $user->can('create_ms::activities');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Msbranch $msbranch): bool
+    public function update(User $user, MsActivities $msActivities): bool
     {
-        return $user->can('update_msbranch');
+        return $user->can('update_ms::activities');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Msbranch $msbranch): bool
+    public function delete(User $user, MsActivities $msActivities): bool
     {
-        return $user->can('delete_msbranch');
+        return $user->can('delete_ms::activities');
     }
 
     /**
@@ -55,15 +55,15 @@ class MsbranchPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_msbranch');
+        return $user->can('delete_any_ms::activities');
     }
 
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, Msbranch $msbranch): bool
+    public function forceDelete(User $user, MsActivities $msActivities): bool
     {
-        return $user->can('force_delete_msbranch');
+        return $user->can('force_delete_ms::activities');
     }
 
     /**
@@ -71,15 +71,15 @@ class MsbranchPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_msbranch');
+        return $user->can('force_delete_any_ms::activities');
     }
 
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, Msbranch $msbranch): bool
+    public function restore(User $user, MsActivities $msActivities): bool
     {
-        return $user->can('restore_msbranch');
+        return $user->can('restore_ms::activities');
     }
 
     /**
@@ -87,13 +87,13 @@ class MsbranchPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_msbranch');
+        return $user->can('restore_any_ms::activities');
     }
 
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, Msbranch $msbranch): bool
+    public function replicate(User $user, MsActivities $msActivities): bool
     {
         return $user->can('{{ Replicate }}');
     }

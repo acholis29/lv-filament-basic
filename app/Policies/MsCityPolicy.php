@@ -63,7 +63,7 @@ class MsCityPolicy
      */
     public function forceDelete(User $user, MsCity $msCity): bool
     {
-        return $user->can('{{ ForceDelete }}');
+        return $user->can('force_delete_ms::city');
     }
 
     /**
@@ -71,7 +71,7 @@ class MsCityPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('{{ ForceDeleteAny }}');
+        return $user->can('force_delete_any_ms::city');
     }
 
     /**
@@ -79,7 +79,7 @@ class MsCityPolicy
      */
     public function restore(User $user, MsCity $msCity): bool
     {
-        return $user->can('{{ Restore }}');
+        return $user->can('restore_ms::city');
     }
 
     /**
@@ -87,7 +87,7 @@ class MsCityPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('{{ RestoreAny }}');
+        return $user->can('restore_any_ms::city');
     }
 
     /**

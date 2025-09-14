@@ -18,12 +18,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class MsActivitiessubRelationManager extends RelationManager
 {
-    protected static string $relationship = 'MsActivitiessub';
+    protected static string $relationship = 'ActivitiesSubs';
     protected static ?string $modelLabel = 'Sub Activities';
     public function getTableHeading(): string
     {
         return 'Sub Activities';
     }
+
+
     public function form(Form $form): Form
     {
         return $form

@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class MsCity extends Model
 {
     //
-        protected $fillable=[
-        'ms_state_id',
-        'name'
+    protected $fillable = [
+        // 'ms_state_id',
+        // 'name'
     ];
-    public function MsState(){
+    public function MsState()
+    {
         return $this->belongsTo(MsState::class);
     }
-    
 }

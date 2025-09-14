@@ -63,7 +63,7 @@ class SubdepartmentPolicy
      */
     public function forceDelete(User $user, Subdepartment $subdepartment): bool
     {
-        return $user->can('{{ ForceDelete }}');
+        return $user->can('force_delete_subdepartment');
     }
 
     /**
@@ -71,7 +71,7 @@ class SubdepartmentPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('{{ ForceDeleteAny }}');
+        return $user->can('force_delete_any_subdepartment');
     }
 
     /**
@@ -79,7 +79,7 @@ class SubdepartmentPolicy
      */
     public function restore(User $user, Subdepartment $subdepartment): bool
     {
-        return $user->can('{{ Restore }}');
+        return $user->can('restore_subdepartment');
     }
 
     /**
@@ -87,7 +87,7 @@ class SubdepartmentPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('{{ RestoreAny }}');
+        return $user->can('restore_any_subdepartment');
     }
 
     /**

@@ -25,7 +25,7 @@ class MsreligionResource extends Resource
     protected static ?string $navigationParentItem = 'Employees';
     protected static ?string $navigationLabel = 'Religion';
     protected static ?string $modelLabel = 'Religion';
-    protected static ?int $navigationSort =3;
+    protected static ?int $navigationSort = 3;
 
 
 
@@ -36,7 +36,7 @@ class MsreligionResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->columnSpanFull()
-                    ->unique()
+                    ->unique(ignoreRecord: true)
                     ->maxLength(255),
             ]);
     }
@@ -72,7 +72,7 @@ class MsreligionResource extends Resource
                 ]),
             ])->headerActions([
                 Tables\Actions\CreateAction::make()
-                ->label('Add Religion')->slideOver()
+                    ->label('Add Religion')->slideOver()
             ])
             ->emptyStateIcon('heroicon-o-circle-stack')
             ->emptyStateActions([

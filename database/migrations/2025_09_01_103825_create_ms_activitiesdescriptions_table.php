@@ -12,16 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ms_activities', function (Blueprint $table) {
+        Schema::create('ms_activitiesdescriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ms_suppliers_id')->constrained();
-            $table->foreignId('msbranch_id')->constrained('msbranches');
-            $table->foreignId('ms_activitiescategorys_id')->constrained('ms_activitiescategorys');
+            $table->foreignId('ms_activities_id')->constrained();
+            $table->foreignId('ms_languages_id')->constrained('ms_languages');
             $table->string('activity_name');
             $table->longText('sortdescription')->nullable();
             $table->longText('description')->nullable();
-            $table->time('pickup_time')->nullable();
-            $table->time('drop_time')->nullable();
             $table->boolean('is_active')->default(true);
             $table->uuid('uid')->default(DB::raw('(UUID())'));
             $table->foreignId('created_by')->nullable()->constrained('users');
@@ -37,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ms_activities');
+        Schema::dropIfExists('ms_activitiesdescriptions');
     }
 };

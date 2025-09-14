@@ -63,7 +63,7 @@ class MsCountryPolicy
      */
     public function forceDelete(User $user, MsCountry $msCountry): bool
     {
-        return $user->can('{{ ForceDelete }}');
+        return $user->can('force_delete_ms::country');
     }
 
     /**
@@ -71,7 +71,7 @@ class MsCountryPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('{{ ForceDeleteAny }}');
+        return $user->can('force_delete_any_ms::country');
     }
 
     /**
@@ -79,7 +79,7 @@ class MsCountryPolicy
      */
     public function restore(User $user, MsCountry $msCountry): bool
     {
-        return $user->can('{{ Restore }}');
+        return $user->can('restore_ms::country');
     }
 
     /**
@@ -87,7 +87,7 @@ class MsCountryPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('{{ RestoreAny }}');
+        return $user->can('restore_any_ms::country');
     }
 
     /**

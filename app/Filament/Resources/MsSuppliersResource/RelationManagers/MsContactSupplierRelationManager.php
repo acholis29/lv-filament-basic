@@ -12,12 +12,16 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MsContactSupplierRelationManager extends RelationManager
 {
-    protected static string $relationship = 'MsContactsuppliers';
+    protected static string $relationship = 'ContactSuppliers';
 
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?string $modelLabel = 'Contact Supplier';
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
+    public function getTableHeading(): string
+    {
+        return 'Supplier Contacts';
+    }
 
     public function form(Form $form): Form
     {
@@ -87,9 +91,9 @@ class MsContactSupplierRelationManager extends RelationManager
                 ])
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
+                // Tables\Actions\BulkActionGroup::make([
+                // ]),
             ]);
     }
 }

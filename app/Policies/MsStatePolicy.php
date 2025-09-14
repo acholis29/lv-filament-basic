@@ -63,7 +63,7 @@ class MsStatePolicy
      */
     public function forceDelete(User $user, MsState $msState): bool
     {
-        return $user->can('{{ ForceDelete }}');
+        return $user->can('force_delete_ms::state');
     }
 
     /**
@@ -71,7 +71,7 @@ class MsStatePolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('{{ ForceDeleteAny }}');
+        return $user->can('force_delete_any_ms::state');
     }
 
     /**
@@ -79,7 +79,7 @@ class MsStatePolicy
      */
     public function restore(User $user, MsState $msState): bool
     {
-        return $user->can('{{ Restore }}');
+        return $user->can('restore_ms::state');
     }
 
     /**
@@ -87,7 +87,7 @@ class MsStatePolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('{{ RestoreAny }}');
+        return $user->can('restore_any_ms::state');
     }
 
     /**
